@@ -1,0 +1,7 @@
+opencv
+streamlit
+imutils
+scipy
+sklearn
+cmake
+dlib
