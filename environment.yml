@@ -6,4 +6,4 @@ dependencies:
   - dlib
   - scipy
   - imutils
-  - cv2
+  - opencv
