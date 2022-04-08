@@ -1,7 +1,9 @@
-opencv
-streamlit
-imutils
-scipy
-sklearn
-cmake
-dlib
+cmake==3.22.1
+dlib==19.22.1
+imutils==0.5.4
+opencv-python==4.5.5.62
+pandas==1.2.5
+numpy==1.22.3
+scikit-learn==1.0.2
+scipy==1.7.3
+streamlit==0.84.2
