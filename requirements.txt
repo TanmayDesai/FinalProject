@@ -1,7 +1,7 @@
 cmake==3.22.1
-dlib==19.22.1
+opencv-python-headless
+dlib-bin
 imutils==0.5.4
-opencv-python==4.5.5.62
 pandas==1.2.5
 numpy==1.3.0
 scikit-learn==1.0.2
