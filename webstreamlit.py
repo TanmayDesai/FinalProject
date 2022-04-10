@@ -32,7 +32,7 @@ EYE_CLOSED_COUNTER = 0
 st.header("Student Attention Detection")
 run = st.checkbox('Run')
 FRAME_WINDOW = st.image([])        
-webcam = cv2.VideoCapture(0)
+webcam = cv2.VideoCapture(-1)
 while run:
     # read frame from webcam 
     status, frame = webcam.read()
