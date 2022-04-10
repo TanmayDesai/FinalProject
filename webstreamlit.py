@@ -5,8 +5,6 @@ from imutils import face_utils
 from scipy.spatial import distance as dist
 import streamlit as st
 
-import cv2
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 
 #Global Configuration Variables
 FACIAL_LANDMARK_PREDICTOR = "shape_predictor_68_face_landmarks.dat"  # path to dlib's pre-trained facial landmark predictor
