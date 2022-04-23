@@ -63,8 +63,10 @@ def app():
         st.write(FLAG)
         if(FLAG == False):
             result = "Subject: Online Exam \n\n Student was looking left and right"
+            s = "Student was looking left and right \n Your Activity has been sent to the Administration"
         else:
             result = "Subject: Online Exam \n\n No malicious Activities detected"
+            s = "No malicious Activities detected \n Your Activity has been sent to the Administration"
         st.write(result)
         conn = smtplib.SMTP('imap.gmail.com',587)
         conn.ehlo()
