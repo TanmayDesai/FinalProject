@@ -1,3 +1,4 @@
+from ast import Global
 from pickle import TRUE
 import cv2
 import dlib
@@ -12,7 +13,7 @@ from datetime import datetime
 FACIAL_LANDMARK_PREDICTOR = "shape_predictor_68_face_landmarks.dat"  # path to dlib's pre-trained facial landmark predictor
 MINIMUM_EAR = 0.26    # Minimum EAR for both the eyes to mark the eyes as open
 MAXIMUM_FRAME_COUNT = 48    # Maximum number of consecutive frames in which EAR can remain less than MINIMUM_EAR, otherwise alert drowsiness
-
+FLAG = True
 
 
 
@@ -37,7 +38,8 @@ def eye_aspect_ratio(eye):
 
 
 def app():
-    global Flag 
+    global FLAG
+    
     
     NO_OF_WARNINGS = 0
     EYE_CLOSED_COUNTER = 0
@@ -53,6 +55,7 @@ def app():
         faces = faceDetector(grayImage, 0)
 
         for face in faces:
+            
             faceLandmarks = landmarkFinder(grayImage, face)
             faceLandmarks = face_utils.shape_to_np(faceLandmarks)
 
@@ -78,9 +81,8 @@ def app():
             cv2.putText(frame, "EAR: {:.2f}".format(ear), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
             if EYE_CLOSED_COUNTER >= MAXIMUM_FRAME_COUNT:
                 cv2.putText(frame, "Drowsiness", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-                Flag = False
-            else:
-                Flag = True
+                FLAG = False
+            
         FRAME_WINDOW.image(frame)
         
     else:
@@ -88,7 +90,8 @@ def app():
         #st.write(Flag)
     submit = st.button("Submit")
     if submit:
-        if(Flag == False ):
+        st.write(FLAG)
+        if(FLAG == False):
             result = "Subject: Online Lec \n\n Student was not paying attention"
         else:
             result = "Subject: Online Lec \n\n Student was paying attention"
@@ -99,7 +102,7 @@ def app():
         conn.login('tdesai.me@student.sfit.ac.in', 'Tanmay007')
         conn.sendmail('tdesai.me@student.sfit.ac.in','tdesai.me@gmail.com',result)
         conn.quit()
-        
+        FLAG = True
         
         
         
