@@ -1,12 +1,10 @@
 import cv2
 import dlib
-import imutils
 from imutils import face_utils
 from scipy.spatial import distance as dist
 import streamlit as st
-
 import cv2
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
 #Global Configuration Variables
 FACIAL_LANDMARK_PREDICTOR = "shape_predictor_68_face_landmarks.dat"  # path to dlib's pre-trained facial landmark predictor
@@ -31,7 +29,7 @@ def eye_aspect_ratio(eye):
 
 
 EYE_CLOSED_COUNTER = 0
-st.header("Student Attention Detection")
+st.title("""Student Attention Detection""")
 run = st.checkbox('Run')
 FRAME_WINDOW = st.image([])        
 webcam = cv2.VideoCapture(0)
@@ -72,3 +70,4 @@ while run:
     FRAME_WINDOW.image(frame)
 else:
     st.write('Stopped')
+
