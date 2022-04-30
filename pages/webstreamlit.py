@@ -8,7 +8,27 @@ import streamlit as st
 import cv2
 import smtplib
 from datetime import datetime
+from streamlit.components.v1 import html
+import base64
 
+# Define your javascript
+my_js = """
+document.addEventListener("visibilitychange", (event) => {
+  if (document.visibilityState == "visible") {
+    console.log("tab is active")
+  } else {
+    alert("tab is inactive")
+  }
+});
+"""
+
+my_js2 = """window.alert(""Please Pay attention !!");"""
+
+my_js3 = """window.open( "https://meet.google.com/", ""); """
+# Wrapt the javascript as html code
+my_html = f"<script>{my_js}</script>"
+my_html2 = f"<script>{my_js2}</script>"
+my_html3 = f"<script>{my_js3}</script>"
 #Global Configuration Variables
 FACIAL_LANDMARK_PREDICTOR = "shape_predictor_68_face_landmarks.dat"  # path to dlib's pre-trained facial landmark predictor
 MINIMUM_EAR = 0.26    # Minimum EAR for both the eyes to mark the eyes as open
@@ -27,6 +47,7 @@ landmarkFinder = dlib.shape_predictor(FACIAL_LANDMARK_PREDICTOR)  # dlib's landm
 (rightEyeStart, rightEyeEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
 def eye_aspect_ratio(eye):
+    
     p2_minus_p6 = dist.euclidean(eye[1], eye[5])
     p3_minus_p5 = dist.euclidean(eye[2], eye[4])
     p1_minus_p4 = dist.euclidean(eye[0], eye[3])
@@ -34,16 +55,17 @@ def eye_aspect_ratio(eye):
     return ear
 
 
-
-
-
 def app():
+    st.header("Online Lecture")
     global FLAG
-    
-    
+    Meet = st.button("Join Meet")
+    run = st.checkbox('Start Lecture')
+    if Meet:
+        html(my_html3)
+        
     NO_OF_WARNINGS = 0
     EYE_CLOSED_COUNTER = 0
-    run = st.checkbox('Run')
+    
     FRAME_WINDOW = st.image([])      
     webcam = cv2.VideoCapture(0)
     while run:
@@ -82,7 +104,7 @@ def app():
             if EYE_CLOSED_COUNTER >= MAXIMUM_FRAME_COUNT:
                 cv2.putText(frame, "Drowsiness", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                 FLAG = False
-            
+                
         FRAME_WINDOW.image(frame)
         
     else:
@@ -90,12 +112,14 @@ def app():
         #st.write(Flag)
     submit = st.button("Submit")
     if submit:
-        st.write(FLAG)
+        #st.write(FLAG)
         if(FLAG == False):
             result = "Subject: Online Lec \n\n Student was not paying attention"
+            s = "Student was not paying attention"
         else:
             result = "Subject: Online Lec \n\n Student was paying attention"
-        st.write(result)
+            s = "Student was paying attention"
+        st.write(s)
         conn = smtplib.SMTP('imap.gmail.com',587)
         conn.ehlo()
         conn.starttls()
@@ -103,6 +127,7 @@ def app():
         conn.sendmail('tdesai.me@student.sfit.ac.in','tdesai.me@gmail.com',result)
         conn.quit()
         FLAG = True
+    #html(my_html)
         
         
         

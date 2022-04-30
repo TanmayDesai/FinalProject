@@ -8,7 +8,7 @@ from pages import webstreamlit, home, eyemovement
 app = MultiPage()
 
 # Title of the main page
-st.title("Online Student Attention and proctoring system")
+st.title("St. Francis Institute of Technology")
 
 # Add all your applications (pages) here
 app.add_page("Home Page", home.app)
