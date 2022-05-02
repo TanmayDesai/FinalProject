@@ -16,7 +16,7 @@ st.title("St. Francis Institute of Technology")
 
 # Add all your applications (pages) here
 app.add_page("Home Page", home.app)
-app.add_page("Student Attention Detection System", webstreamlit.app)
+app.add_page("Online Lecture", webstreamlit.app)
 app.add_page("Proctoring System", eyemovement.app)
 
 
